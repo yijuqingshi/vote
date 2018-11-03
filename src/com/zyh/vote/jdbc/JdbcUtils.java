@@ -1,5 +1,8 @@
 package com.zyh.vote.jdbc;
 
+
+
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -26,18 +29,17 @@ public class JdbcUtils {
         USERNAME = ResourceBundle.getBundle("jdbc").getString("username");
         try {
             Class.forName(DRIVER_CALSS);
+            System.out.println("加载驱动成功....");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
 
 
-
-
-
     public Connection getConnection() {
         try {
             mConnection = DriverManager.getConnection(url,USERNAME,PASSWORD);
+            System.out.println("连接数据库成功....");
             return mConnection;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -57,5 +59,13 @@ public class JdbcUtils {
              }
          }
          return false;
+    }
+
+
+    public static void main(String[] args){
+
+        JdbcUtils mJdbcUtils = new JdbcUtils();
+        Connection connection = mJdbcUtils.getConnection();
+        mJdbcUtils.closeConnection();
     }
 }
