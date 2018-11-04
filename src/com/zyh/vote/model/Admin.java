@@ -14,6 +14,32 @@ public class Admin {
 
     private Timestamp create_time;
 
+    private String f_id;
+
+
+    public Admin(){
+        this.f_id = System.currentTimeMillis()+"";
+        this.create_time = new Timestamp(System.currentTimeMillis());
+    }
+
+    public Admin(String username, String password, String phone) {
+        this.username = username;
+        this.password = password;
+        this.phone = phone;
+        this.create_time = new Timestamp(System.currentTimeMillis());
+        this.f_id = System.currentTimeMillis()+"";
+    }
+
+    public String getF_id() {
+        return f_id;
+    }
+
+    public void setF_id(String f_id) {
+        this.f_id = f_id;
+    }
+
+
+
     public int getId() {
         return id;
     }
@@ -52,5 +78,17 @@ public class Admin {
 
     public void setCreate_time(Timestamp create_time) {
         this.create_time = create_time;
+    }
+
+    @Override
+    public String toString() {
+        return "Admin{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", phone='" + phone + '\'' +
+                ", create_time=" + create_time +
+                ", f_id='" + f_id + '\'' +
+                '}';
     }
 }

@@ -3,9 +3,8 @@ package com.zyh.vote.jdbc;
 
 
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class JdbcUtils {
@@ -19,7 +18,6 @@ public class JdbcUtils {
 
     private static String DRIVER_CALSS;
 
-
     private Connection mConnection;
 
     static {
@@ -29,17 +27,108 @@ public class JdbcUtils {
         USERNAME = ResourceBundle.getBundle("jdbc").getString("username");
         try {
             Class.forName(DRIVER_CALSS);
-            System.out.println("加载驱动成功....");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
 
+    public int executeUpdate(String sql , List<Object> params)
+    {
+        Connection connection = getConnection();
+        if (connection != null){
+            try {
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                for (int i = 0;  i < params.size();i++){
+                    preparedStatement.setObject(i+1,params.get(i));
+                }
+                int result = preparedStatement.executeUpdate();
+                return  result;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }finally {
+                closeConnection();
+            }
+        }
+        return -1;
+    }
+
+
+    public int executeUpdate(String sql , Object params)
+    {
+        Connection connection = getConnection();
+        if (connection != null){
+            try {
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setObject(1,params);
+                int result = preparedStatement.executeUpdate();
+                return  result;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }finally {
+                closeConnection();
+            }
+        }
+        return -1;
+    }
+
+
+
+
+    public ResultSet executeQuery(String sql ,List<Object> params){
+        Connection connection = getConnection();
+
+        if (null != connection && null != params) {
+
+            try {
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                for (int i = 0; i < params.size(); i++) {
+                    preparedStatement.setObject(i+1, params.get(i));
+                }
+                ResultSet resultSet = preparedStatement.executeQuery();
+                return resultSet;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        }
+         return  null;
+    }
+
+    public ResultSet executeQuery(String sql){
+        Connection connection = getConnection();
+        if (null != connection) {
+
+            try {
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                return resultSet;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return  null;
+    }
+
+
+    public ResultSet executeQuery(String sql ,Object params){
+        Connection connection = getConnection();
+        if (null != connection) {
+
+            try {
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setObject(1, params);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                return resultSet;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return  null;
+    }
 
     public Connection getConnection() {
         try {
             mConnection = DriverManager.getConnection(url,USERNAME,PASSWORD);
-            System.out.println("连接数据库成功....");
             return mConnection;
         } catch (SQLException e) {
             e.printStackTrace();
