@@ -5,7 +5,7 @@ import com.zyh.vote.enmu.QuestionType;
 import java.sql.Timestamp;
 import java.util.List;
 
-public class Question {
+public class Question extends BaseModel{
 
     private int id;
 

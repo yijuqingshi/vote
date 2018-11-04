@@ -2,7 +2,7 @@ package com.zyh.vote.model;
 
 
 
-public class VoteDetails {
+public class VoteDetails extends BaseModel{
 
     private int id;
 

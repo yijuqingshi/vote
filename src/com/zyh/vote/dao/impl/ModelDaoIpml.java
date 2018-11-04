@@ -4,6 +4,7 @@ package com.zyh.vote.dao.impl;
 
 import com.zyh.vote.dao.ModelDao;
 import com.zyh.vote.jdbc.JdbcUtils;
+import com.zyh.vote.model.BaseModel;
 import com.zyh.vote.model.User;
 
 import java.lang.reflect.Field;
@@ -31,6 +32,7 @@ public class ModelDaoIpml<T> implements ModelDao<T> {
         List<Object> values = new ArrayList<>();
         for (Field field : declaredFields)
         {
+
               fieldSql.append(field.getName() + ",");
               valuesSql.append("?,");
             try {

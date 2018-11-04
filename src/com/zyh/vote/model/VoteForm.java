@@ -3,7 +3,7 @@ package com.zyh.vote.model;
 
 import java.util.List;
 
-public class VoteForm {
+public class VoteForm extends BaseModel{
 
     private int id;
 

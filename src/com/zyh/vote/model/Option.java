@@ -2,7 +2,7 @@ package com.zyh.vote.model;
 
 import java.sql.Timestamp;
 
-public class Option {
+public class Option extends BaseModel{
 
     private int id;
 
