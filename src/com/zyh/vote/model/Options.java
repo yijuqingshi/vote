@@ -12,7 +12,6 @@ public class Option extends BaseModel{
 
     private Timestamp create_time;
 
-    private String f_id;
 
     public String getF_id() {
         return f_id;
